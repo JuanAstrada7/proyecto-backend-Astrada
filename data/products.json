@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "status": true,
+    "thumbnails": []
+  },
+  {
+    "id": 2,
+    "title": "Laptop Gaming",
+    "description": "Laptop para gaming de alto rendimiento",
+    "code": "LAP001",
+    "price": 1100,
+    "status": true,
+    "stock": 8,
+    "category": "Electrónicos",
+    "thumbnails": [
+      "laptop1.jpg",
+      "laptop2.jpg"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Laptop Gaming XQ",
+    "description": "Laptop para gaming expertos de alto rendimiento",
+    "code": "LAP001",
+    "price": 1500,
+    "status": true,
+    "stock": 10,
+    "category": "Electrónicos",
+    "thumbnails": [
+      "laptop2.jpg",
+      "laptop2.jpg"
+    ]
+  }
+]
