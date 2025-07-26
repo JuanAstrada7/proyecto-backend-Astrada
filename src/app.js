@@ -1,21 +1,46 @@
 const express = require('express');
+const { createServer } = require('http');
+const { Server } = require('socket.io');
+const exphbs = require('express-handlebars');
+const path = require('path');
+
 const productsRouter = require('./routes/products.router');
 const cartsRouter = require('./routes/carts.router');
+const viewsRouter = require('./routes/views.router');
+
+const configureSocket = require('./socket/socketManager');
 
 const app = express();
+const server = createServer(app);
+const io = new Server(server);
+
 const PORT = 8080;
 
-app.use(express.json());
+app.engine('handlebars', exphbs.engine({
+    defaultLayout: 'main',
+    layoutsDir: path.join(__dirname, '../views/layouts'),
+    partialsDir: path.join(__dirname, '../views/partials')
+}));
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, '../views'));
 
+app.use(express.json());
+app.use(express.static(path.join(__dirname, '../public')));
+
+configureSocket(io);
+
+app.use('/', viewsRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
     res.json({
         message: 'API funcionando correctamente',
         endpoints: {
             products: '/api/products',
-            carts: '/api/carts'
+            carts: '/api/carts',
+            home: '/',
+            realtime: '/realtimeproducts'
         }
     });
 });
@@ -27,9 +52,11 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
-    console.log(`Endpoints disponibles:`);
-    console.log(`- Productos: http://localhost:${PORT}/api/products`);
-    console.log(`- Carritos: http://localhost:${PORT}/api/carts`);
+server.listen(PORT, () => {
+    console.log(`🏎️ Servidor F1 Toys Store corriendo en http://localhost:${PORT}`);
+    console.log(`📱 Endpoints disponibles:`);
+    console.log(`   - Home: http://localhost:${PORT}/`);
+    console.log(`   - Productos en Tiempo Real: http://localhost:${PORT}/realtimeproducts`);
+    console.log(`   - API Productos: http://localhost:${PORT}/api/products`);
+    console.log(`   - API Carritos: http://localhost:${PORT}/api/carts`);
 });

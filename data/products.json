@@ -1,35 +1,65 @@
 [
   {
     "id": 1,
+    "title": "Miniatura Red Bull RB19",
+    "description": "Réplica a escala 1:18 del auto campeón de Max Verstappen",
+    "code": "F1-RB19",
+    "price": 89.99,
     "status": true,
-    "thumbnails": []
+    "stock": 15,
+    "category": "Miniaturas",
+    "thumbnails": [
+      "redbull-rb19.jpg"
+    ]
   },
   {
     "id": 2,
-    "title": "Laptop Gaming",
-    "description": "Laptop para gaming de alto rendimiento",
-    "code": "LAP001",
-    "price": 1100,
+    "title": "Casco Max Verstappen",
+    "description": "Casco réplica del campeón mundial 2023",
+    "code": "F1-MAX-HELMET",
+    "price": 45.5,
     "status": true,
     "stock": 8,
-    "category": "Electrónicos",
+    "category": "Accesorios",
     "thumbnails": [
-      "laptop1.jpg",
-      "laptop2.jpg"
+      "max-helmet.jpg"
     ]
   },
   {
     "id": 3,
-    "title": "Laptop Gaming XQ",
-    "description": "Laptop para gaming expertos de alto rendimiento",
-    "code": "LAP001",
-    "price": 1500,
+    "title": "Pista de Carreras F1",
+    "description": "Circuito de Monte Carlo con autos a control remoto",
+    "code": "F1-TRACK-MC",
+    "price": 120,
     "status": true,
-    "stock": 10,
-    "category": "Electrónicos",
+    "stock": 5,
+    "category": "Pistas",
     "thumbnails": [
-      "laptop2.jpg",
-      "laptop2.jpg"
+      "monaco-track.jpg"
     ]
+  },
+  {
+    "id": 4,
+    "title": "Figura Lewis Hamilton",
+    "description": "Figura coleccionable del 7 veces campeón mundial",
+    "code": "F1-LEWIS-FIG",
+    "price": 25.99,
+    "status": true,
+    "stock": 12,
+    "category": "Figuras",
+    "thumbnails": [
+      "lewis-figure.jpg"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Casco Charles Leclerc",
+    "description": "Casco réplica del piloto de Ferrari",
+    "code": "F1-CHARLES-HELMET",
+    "price": 52.5,
+    "status": true,
+    "stock": 12,
+    "category": "Accesorios",
+    "thumbnails": []
   }
 ]
