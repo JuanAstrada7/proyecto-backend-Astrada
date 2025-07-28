@@ -6,10 +6,8 @@ Tienda de juguetes de Fórmula 1 con WebSockets y Handlebars.
 
 ## 🚀 Instalación
 
-```bash
 npm install
 npm run dev
-```
 
 Abrir: http://localhost:8080
 
