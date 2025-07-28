@@ -21,7 +21,7 @@ socket.on('productsUpdated', (products) => {
 
 addProductForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    
+
     const product = {
         title: document.getElementById('title').value,
         description: document.getElementById('description').value,
@@ -32,19 +32,19 @@ addProductForm.addEventListener('submit', (e) => {
         imageUrl: document.getElementById('imageUrl').value || null,
         status: true
     };
-    
+
     socket.emit('addProduct', product);
-    
+
     addProductForm.reset();
 });
 
 deleteProductForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    
+
     const productId = parseInt(document.getElementById('deleteId').value);
-    
+
     socket.emit('deleteProduct', productId);
-    
+
     deleteProductForm.reset();
 });
 
@@ -52,13 +52,13 @@ function addProductToDOM(product) {
     const productCard = document.createElement('div');
     productCard.className = 'product-card';
     productCard.setAttribute('data-id', product.id);
-    
-    const imageHtml = product.imageUrl 
+
+    const imageHtml = product.imageUrl
         ? `<img src="${product.imageUrl}" alt="${product.title}" loading="lazy" class="product-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`
         : '';
-    
+
     const placeholderHtml = '<div class="product-placeholder" style="display: none;">🏎️</div>';
-    
+
     productCard.innerHTML = `
         ${imageHtml}
         ${placeholderHtml}
@@ -70,7 +70,7 @@ function addProductToDOM(product) {
         <p><strong>Categoría:</strong> ${product.category}</p>
         <p><strong>Estado:</strong> ${product.status ? '✅ Disponible' : '❌ No disponible'}</p>
     `;
-    
+
     productsList.appendChild(productCard);
 }
 

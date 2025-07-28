@@ -142,7 +142,7 @@ footer {
     .products-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .container {
         padding: 1rem;
     }
