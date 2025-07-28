@@ -1,9 +1,16 @@
 <div class="container">
-    <h2>Nuestros Productos F1</h2>
-
+    <h2>🏎️ Nuestros Productos F1</h2>
+    
     <div class="products-grid">
         {{#each products}}
         <div class="product-card">
+            {{#if imageUrl}}
+            <img src="{{imageUrl}}" alt="{{title}}" loading="lazy" class="product-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            {{/if}}
+            {{#unless imageUrl}}
+            <div class="product-placeholder">��️</div>
+            {{/unless}}
+            <div class="product-placeholder" style="display: none;">��️</div>
             <h3>{{title}}</h3>
             <p>{{description}}</p>
             <p><strong>Código:</strong> {{code}}</p>

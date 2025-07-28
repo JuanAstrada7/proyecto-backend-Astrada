@@ -8,9 +8,7 @@
     "status": true,
     "stock": 15,
     "category": "Miniaturas",
-    "thumbnails": [
-      "redbull-rb19.jpg"
-    ]
+    "imageUrl": "https://ae01.alicdn.com/kf/Sfd5e8c91cc3243aa94a25373f3c58df0e.jpg_640x640q90.jpg"
   },
   {
     "id": 2,
@@ -21,9 +19,7 @@
     "status": true,
     "stock": 8,
     "category": "Accesorios",
-    "thumbnails": [
-      "max-helmet.jpg"
-    ]
+    "imageUrl": "https://http2.mlstatic.com/D_NQ_NP_813115-MLA76827162888_062024-O.webp"
   },
   {
     "id": 3,
@@ -34,32 +30,17 @@
     "status": true,
     "stock": 5,
     "category": "Pistas",
-    "thumbnails": [
-      "monaco-track.jpg"
-    ]
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYwNNfvhgC49Il1ocj0o6opQFHSfkbznMkWA&s"
   },
   {
     "id": 4,
     "title": "Figura Lewis Hamilton",
     "description": "Figura coleccionable del 7 veces campeón mundial",
-    "code": "F1-LEWIS-FIG",
+    "code": "F1-LEWISH-FIG",
     "price": 25.99,
     "status": true,
-    "stock": 12,
+    "stock": 15,
     "category": "Figuras",
-    "thumbnails": [
-      "lewis-figure.jpg"
-    ]
-  },
-  {
-    "id": 5,
-    "title": "Casco Charles Leclerc",
-    "description": "Casco réplica del piloto de Ferrari",
-    "code": "F1-CHARLES-HELMET",
-    "price": 52.5,
-    "status": true,
-    "stock": 12,
-    "category": "Accesorios",
-    "thumbnails": []
+    "imageUrl": "https://i.ebayimg.com/images/g/nB0AAOSwG9dmIaVU/s-l1200.jpg"
   }
 ]

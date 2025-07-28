@@ -1,8 +1,8 @@
 <div class="container">
     <h2>⚡ Productos en Tiempo Real</h2>
-
+    
     <div class="form-section">
-        <h3>Agregar Nuevo Producto</h3>
+        <h3>➕ Agregar Nuevo Producto</h3>
         <form id="addProductForm">
             <input type="text" id="title" placeholder="Título del producto" required>
             <input type="text" id="description" placeholder="Descripción" required>
@@ -10,23 +10,31 @@
             <input type="number" id="price" placeholder="Precio" step="0.01" required>
             <input type="number" id="stock" placeholder="Stock" required>
             <input type="text" id="category" placeholder="Categoría" required>
+            <input type="url" id="imageUrl" placeholder="URL de la imagen (opcional)">
             <button type="submit">Agregar Producto</button>
         </form>
     </div>
-
+    
     <div class="form-section">
-        <h3>Eliminar Producto</h3>
+        <h3> Eliminar Producto</h3>
         <form id="deleteProductForm">
             <input type="number" id="deleteId" placeholder="ID del producto" required>
             <button type="submit">Eliminar Producto</button>
         </form>
     </div>
-
+    
     <div class="products-section">
-        <h3>Productos Actuales</h3>
+        <h3>🏎️ Productos Actuales</h3>
         <div id="productsList" class="products-grid">
             {{#each products}}
             <div class="product-card" data-id="{{id}}">
+                {{#if imageUrl}}
+                <img src="{{imageUrl}}" alt="{{title}}" loading="lazy" class="product-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                {{/if}}
+                {{#unless imageUrl}}
+                <div class="product-placeholder">🏎️</div>
+                {{/unless}}
+                <div class="product-placeholder" style="display: none;">🏎️</div>
                 <h3>{{title}}</h3>
                 <p>{{description}}</p>
                 <p><strong>Código:</strong> {{code}}</p>

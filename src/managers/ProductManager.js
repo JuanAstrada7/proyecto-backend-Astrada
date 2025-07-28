@@ -49,7 +49,7 @@ class ProductManager {
             status: productData.status !== undefined ? productData.status : true,
             stock: productData.stock,
             category: productData.category,
-            thumbnails: productData.thumbnails || []
+            imageUrl: productData.imageUrl || null
         };
 
         this.products.push(newProduct);
@@ -63,7 +63,6 @@ class ProductManager {
             throw new Error('Producto no encontrado');
         }
 
-        // No permitir actualizar el ID
         const { id: _, ...dataToUpdate } = updateData;
 
         this.products[index] = {
