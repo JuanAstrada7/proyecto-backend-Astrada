@@ -4,19 +4,19 @@ const ProductManager = require('../managers/ProductManager');
 const router = express.Router();
 const productManager = new ProductManager();
 
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
-        const products = productManager.getProducts();
+        const products = await productManager.getProducts();
         res.json({ products });
     } catch (error) {
         next(error);
     }
 });
 
-router.get('/:pid', (req, res, next) => {
+router.get('/:pid', async (req, res, next) => {
     try {
         const productId = parseInt(req.params.pid);
-        const product = productManager.getProductById(productId);
+        const product = await productManager.getProductById(productId);
         res.json({ product });
     } catch (error) {
         error.status = 404;
@@ -24,9 +24,12 @@ router.get('/:pid', (req, res, next) => {
     }
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
     try {
-        const newProduct = productManager.addProduct(req.body);
+        const newProduct = await productManager.addProduct(req.body);
+
+        req.app.get('io').emit('productAdded', newProduct);
+
         res.status(201).json({ product: newProduct });
     } catch (error) {
         error.status = 400;
@@ -34,10 +37,13 @@ router.post('/', (req, res, next) => {
     }
 });
 
-router.put('/:pid', (req, res, next) => {
+router.put('/:pid', async (req, res, next) => {
     try {
         const productId = parseInt(req.params.pid);
-        const updatedProduct = productManager.updateProduct(productId, req.body);
+        const updatedProduct = await productManager.updateProduct(productId, req.body);
+
+        req.app.get('io').emit('productUpdated', updatedProduct);
+
         res.json({ product: updatedProduct });
     } catch (error) {
         error.status = 404;
@@ -45,10 +51,13 @@ router.put('/:pid', (req, res, next) => {
     }
 });
 
-router.delete('/:pid', (req, res, next) => {
+router.delete('/:pid', async (req, res, next) => {
     try {
         const productId = parseInt(req.params.pid);
-        const deletedProduct = productManager.deleteProduct(productId);
+        const deletedProduct = await productManager.deleteProduct(productId);
+
+        req.app.get('io').emit('productDeleted', productId);
+
         res.json({ message: 'Producto eliminado', product: deletedProduct });
     } catch (error) {
         error.status = 404;
