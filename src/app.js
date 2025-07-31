@@ -54,8 +54,7 @@ app.use((err, req, res, next) => {
 });
 
 server.listen(PORT, () => {
-    console.log(`🏎️ Servidor F1 Toys Store corriendo en http://localhost:${PORT}`);
-    console.log(`📱 Endpoints disponibles:`);
+    console.log(` Servidor F1 Toys Store corriendo en http://localhost:${PORT}`);
     console.log(`   - Home: http://localhost:${PORT}/`);
     console.log(`   - Productos en Tiempo Real: http://localhost:${PORT}/realtimeproducts`);
     console.log(`   - API Productos: http://localhost:${PORT}/api/products`);

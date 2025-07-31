@@ -68,7 +68,7 @@ function addProductToDOM(product) {
         <p><strong>Precio:</strong> $${product.price}</p>
         <p><strong>Stock:</strong> ${product.stock}</p>
         <p><strong>Categoría:</strong> ${product.category}</p>
-        <p><strong>Estado:</strong> ${product.status ? '✅ Disponible' : '❌ No disponible'}</p>
+        <p><strong>Estado:</strong> ${product.status ? 'Disponible' : 'No disponible'}</p>
     `;
 
     productsList.appendChild(productCard);

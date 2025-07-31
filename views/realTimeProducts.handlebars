@@ -1,8 +1,8 @@
 <div class="container">
-    <h2>⚡ Productos en Tiempo Real</h2>
+    <h2> Suma nuevos coleccionables! </h2>
     
     <div class="form-section">
-        <h3>➕ Agregar Nuevo Producto</h3>
+        <h3> Agregar Nuevo Producto</h3>
         <form id="addProductForm">
             <input type="text" id="title" placeholder="Título del producto" required>
             <input type="text" id="description" placeholder="Descripción" required>
@@ -24,7 +24,7 @@
     </div>
     
     <div class="products-section">
-        <h3>🏎️ Productos Actuales</h3>
+        <h3> Productos Actuales</h3>
         <div id="productsList" class="products-grid">
             {{#each products}}
             <div class="product-card" data-id="{{id}}">
@@ -41,7 +41,7 @@
                 <p><strong>Precio:</strong> ${{price}}</p>
                 <p><strong>Stock:</strong> {{stock}}</p>
                 <p><strong>Categoría:</strong> {{category}}</p>
-                <p><strong>Estado:</strong> {{#if status}}✅ Disponible{{else}}❌ No disponible{{/if}}</p>
+                <p><strong>Estado:</strong> {{#if status}} Disponible {{else}} No disponible {{/if}}</p>
             </div>
             {{/each}}
         </div>
