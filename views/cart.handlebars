@@ -1,0 +1,54 @@
+<div class="container">
+    <h2>Carrito de Compras</h2>
+    
+    {{#if cart.products.length}}
+    <div class="cart-items">
+        {{#each cart.products}}
+        <div class="cart-item">
+            <div class="item-image">
+                {{#if this.product.imageUrl}}
+                <img src="{{this.product.imageUrl}}" alt="{{this.product.title}}">
+                {{else}}
+                <div class="product-placeholder">
+                    <i class="fas fa-image"></i>
+                </div>
+                {{/if}}
+            </div>
+            
+            <div class="item-details">
+                <h3>{{this.product.title}}</h3>
+                <p><strong>Precio:</strong> ${{this.product.price}}</p>
+                <p><strong>Cantidad:</strong> {{this.quantity}}</p>
+                <p><strong>Subtotal:</strong> ${{multiply this.product.price this.quantity}}</p>
+            </div>
+            
+            <div class="item-actions">
+                <form action="/api/carts/{{../cart._id}}/products/{{this.product._id}}" method="PUT" class="quantity-form">
+                    <input type="number" name="quantity" value="{{this.quantity}}" min="1" max="{{this.product.stock}}">
+                    <button type="submit">Actualizar</button>
+                </form>
+                
+                <form action="/api/carts/{{../cart._id}}/products/{{this.product._id}}" method="DELETE" class="delete-form">
+                    <button type="submit" class="btn-delete">Eliminar</button>
+                </form>
+            </div>
+        </div>
+        {{/each}}
+        
+        <div class="cart-total">
+            <h3>Total: ${{calculateTotal cart.products}}</h3>
+        </div>
+        
+        <div class="cart-actions">
+            <form action="/api/carts/{{cart._id}}" method="DELETE">
+                <button type="submit" class="btn-clear-cart">Vaciar Carrito</button>
+            </form>
+        </div>
+    </div>
+    {{else}}
+    <div class="empty-cart">
+        <p>Tu carrito está vacío</p>
+        <a href="/" class="btn-continue-shopping">Continuar Comprando</a>
+    </div>
+    {{/if}}
+</div>

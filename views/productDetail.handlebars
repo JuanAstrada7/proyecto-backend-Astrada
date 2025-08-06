@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="product-detail">
+        <div class="product-image">
+            {{#if product.imageUrl}}
+            <img src="{{product.imageUrl}}" alt="{{product.title}}" class="detail-image">
+            {{else}}
+            <div class="product-placeholder detail-placeholder">
+                <i class="fas fa-image"></i>
+            </div>
+            {{/if}}
+        </div>
+        
+        <div class="product-info">
+            <h1>{{product.title}}</h1>
+            <p class="description">{{product.description}}</p>
+            
+            <div class="product-details">
+                <p><strong>Código:</strong> {{product.code}}</p>
+                <p><strong>Precio:</strong> ${{product.price}}</p>
+                <p><strong>Stock:</strong> {{product.stock}}</p>
+                <p><strong>Categoría:</strong> {{product.category}}</p>
+                <p><strong>Estado:</strong> 
+                    {{#if product.status}} 
+                        <span class="status-available">Disponible</span>
+                    {{else}} 
+                        <span class="status-unavailable">No disponible</span>
+                    {{/if}}
+                </p>
+            </div>
+            
+            {{#if product.status}}
+            <div class="add-to-cart-section">
+                <form action="/api/carts/6893def890c787ca530f7d3b/product/{{product._id}}" method="POST" class="add-to-cart-form">
+                    <label for="quantity">Cantidad:</label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1" max="{{product.stock}}">
+                    <button type="submit" class="btn-add-cart">Agregar al Carrito</button>
+                </form>
+            </div>
+            {{/if}}
+            
+            <a href="/" class="btn-back">Volver a Productos</a>
+        </div>
+    </div>
+</div>

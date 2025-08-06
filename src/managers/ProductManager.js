@@ -1,88 +1,122 @@
-const fs = require('fs');
+const Product = require('../models/Product');
 
 class ProductManager {
-    constructor() {
-        this.path = './data/products.json';
-        this.products = [];
-        this.loadProducts();
-    }
+    async getProducts(options = {}) {
+        const {
+            limit = 10,
+            page = 1,
+            sort,
+            query = {}
+        } = options;
 
-    loadProducts() {
+        let filterQuery = {};
+        
+        if (query.category) {
+            filterQuery.category = query.category;
+        }
+        
+        if (query.status !== undefined) {
+            filterQuery.status = query.status === 'true' || query.status === true;
+        }
+
+        const queryOptions = {
+            limit: parseInt(limit),
+            skip: (parseInt(page) - 1) * parseInt(limit)
+        };
+
+        if (sort) {
+            const sortOrder = sort === 'asc' ? 1 : -1;
+            queryOptions.sort = { price: sortOrder };
+        }
+
         try {
-            const data = fs.readFileSync(this.path, 'utf8');
-            this.products = JSON.parse(data);
+            const products = await Product.find(filterQuery)
+                .limit(queryOptions.limit)
+                .skip(queryOptions.skip)
+                .sort(queryOptions.sort || {});
+
+            const totalDocs = await Product.countDocuments(filterQuery);
+            const totalPages = Math.ceil(totalDocs / queryOptions.limit);
+
+            const baseUrl = '/api/products';
+            const prevPage = page > 1 ? page - 1 : null;
+            const nextPage = page < totalPages ? page + 1 : null;
+
+            const prevLink = prevPage 
+                ? `${baseUrl}?page=${prevPage}&limit=${limit}${sort ? `&sort=${sort}` : ''}${query.category ? `&query[category]=${query.category}` : ''}${query.status !== undefined ? `&query[status]=${query.status}` : ''}`
+                : null;
+
+            const nextLink = nextPage 
+                ? `${baseUrl}?page=${nextPage}&limit=${limit}${sort ? `&sort=${sort}` : ''}${query.category ? `&query[category]=${query.category}` : ''}${query.status !== undefined ? `&query[status]=${query.status}` : ''}`
+                : null;
+
+            return {
+                status: 'success',
+                payload: products,
+                totalPages,
+                prevPage,
+                nextPage,
+                page: parseInt(page),
+                hasPrevPage: prevPage !== null,
+                hasNextPage: nextPage !== null,
+                prevLink,
+                nextLink
+            };
         } catch (error) {
-            this.products = [];
-            this.saveProducts();
+            throw new Error(`Error al obtener productos: ${error.message}`);
         }
     }
 
-    saveProducts() {
-        fs.writeFileSync(this.path, JSON.stringify(this.products, null, 2));
-    }
-
-    generateId() {
-        return this.products.length > 0
-            ? Math.max(...this.products.map(p => p.id)) + 1
-            : 1;
-    }
-
-    getProducts() {
-        return this.products;
-    }
-
-    getProductById(id) {
-        const product = this.products.find(p => p.id === id);
-        if (!product) {
-            throw new Error('Producto no encontrado');
+    async getProductById(id) {
+        try {
+            const product = await Product.findById(id);
+            if (!product) {
+                throw new Error('Producto no encontrado');
+            }
+            return product;
+        } catch (error) {
+            throw new Error(`Error al obtener producto: ${error.message}`);
         }
-        return product;
     }
 
-    addProduct(productData) {
-        const newProduct = {
-            id: this.generateId(),
-            title: productData.title,
-            description: productData.description,
-            code: productData.code,
-            price: productData.price,
-            status: productData.status !== undefined ? productData.status : true,
-            stock: productData.stock,
-            category: productData.category,
-            imageUrl: productData.imageUrl || null
-        };
-
-        this.products.push(newProduct);
-        this.saveProducts();
-        return newProduct;
-    }
-
-    updateProduct(id, updateData) {
-        const index = this.products.findIndex(p => p.id === id);
-        if (index === -1) {
-            throw new Error('Producto no encontrado');
+    async addProduct(productData) {
+        try {
+            const newProduct = new Product(productData);
+            await newProduct.save();
+            return newProduct;
+        } catch (error) {
+            throw new Error(`Error al agregar producto: ${error.message}`);
         }
-
-        const { id: _, ...dataToUpdate } = updateData;
-
-        this.products[index] = {
-            ...this.products[index],
-            ...dataToUpdate
-        };
-
-        this.saveProducts();
-        return this.products[index];
     }
 
-    deleteProduct(id) {
-        const index = this.products.findIndex(p => p.id === id);
-        if (index === -1) {
-            throw new Error('Producto no encontrado');
+    async updateProduct(id, updateData) {
+        try {
+            const product = await Product.findByIdAndUpdate(
+                id,
+                updateData,
+                { new: true, runValidators: true }
+            );
+            
+            if (!product) {
+                throw new Error('Producto no encontrado');
+            }
+            
+            return product;
+        } catch (error) {
+            throw new Error(`Error al actualizar producto: ${error.message}`);
         }
+    }
 
-        const deletedProduct = this.products.splice(index, 1)[0];
-        this.saveProducts();
-        return deletedProduct;
+    async deleteProduct(id) {
+        try {
+            const product = await Product.findByIdAndDelete(id);
+            if (!product) {
+                throw new Error('Producto no encontrado');
+            }
+            return product;
+        } catch (error) {
+            throw new Error(`Error al eliminar producto: ${error.message}`);
+        }
     }
 }
 

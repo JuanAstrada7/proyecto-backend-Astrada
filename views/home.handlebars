@@ -1,5 +1,22 @@
 <div class="container">
-    <h2> Nuestros Productos F1</h2>
+    <h2>Nuestros Productos F1</h2>
+    
+    <div class="filters">
+        <form method="GET" action="/" class="filter-form">
+            <select name="query" onchange="this.form.submit()">
+                <option value="">Todas las categorías</option>
+                <option value="Monoplazas" {{#if (eq query "Monoplazas")}}selected{{/if}}>Monoplazas</option>
+                <option value="Pilotos" {{#if (eq query "Pilotos")}}selected{{/if}}>Pilotos</option>
+                <option value="Circuitos" {{#if (eq query "Circuitos")}}selected{{/if}}>Circuitos</option>
+            </select>
+            
+            <select name="sort" onchange="this.form.submit()">
+                <option value="">Sin ordenar</option>
+                <option value="asc" {{#if (eq sort "asc")}}selected{{/if}}>Precio: Menor a Mayor</option>
+                <option value="desc" {{#if (eq sort "desc")}}selected{{/if}}>Precio: Mayor a Menor</option>
+            </select>
+        </form>
+    </div>
     
     <div class="products-grid">
         {{#each products}}
@@ -11,14 +28,39 @@
             <div class="product-placeholder"><i class="fas fa-image"></i></div>
             {{/unless}}
             <div class="product-placeholder" style="display: none;"></div>
+            
             <h3>{{title}}</h3>
             <p>{{description}}</p>
-            <p><strong>Código:</strong> {{code}}</p>
             <p><strong>Precio:</strong> ${{price}}</p>
-            <p><strong>Stock:</strong> {{stock}}</p>
             <p><strong>Categoría:</strong> {{category}}</p>
             <p><strong>Estado:</strong> {{#if status}} Disponible {{else}} No disponible {{/if}}</p>
+            
+            <div class="product-actions">
+                <a href="/products/{{_id}}" class="btn-view-details">Ver Detalles</a>
+                {{#if status}}
+                <form action="/api/carts/6893def890c787ca530f7d3b/product/{{_id}}" method="POST" class="add-to-cart-form">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="btn-add-cart">Agregar al Carrito</button>
+                </form>
+                {{/if}}
+            </div>
         </div>
         {{/each}}
     </div>
+    
+    {{#if pagination}}
+    <div class="pagination">
+        {{#if pagination.hasPrevPage}}
+        <a href="{{pagination.prevLink}}" class="btn-page">Anterior</a>
+        {{/if}}
+        
+        <span class="page-info">
+            Página {{pagination.page}} de {{pagination.totalPages}}
+        </span>
+        
+        {{#if pagination.hasNextPage}}
+        <a href="{{pagination.nextLink}}" class="btn-page">Siguiente</a>
+        {{/if}}
+    </div>
+    {{/if}}
 </div>
