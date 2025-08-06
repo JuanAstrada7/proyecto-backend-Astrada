@@ -7,7 +7,7 @@
         <div class="cart-item">
             <div class="item-image">
                 {{#if this.product.imageUrl}}
-                <img src="{{this.product.imageUrl}}" alt="{{this.product.title}}">
+                <img src="{{this.product.imageUrl}}" alt="{{this.product.title}}" class="cart-product-image">
                 {{else}}
                 <div class="product-placeholder">
                     <i class="fas fa-image"></i>
@@ -17,37 +17,49 @@
             
             <div class="item-details">
                 <h3>{{this.product.title}}</h3>
-                <p><strong>Precio:</strong> ${{this.product.price}}</p>
+                <p class="product-description">{{this.product.description}}</p>
+                <p><strong>Precio unitario:</strong> ${{this.product.price}}</p>
                 <p><strong>Cantidad:</strong> {{this.quantity}}</p>
                 <p><strong>Subtotal:</strong> ${{multiply this.product.price this.quantity}}</p>
+                <p><strong>Categoría:</strong> {{this.product.category}}</p>
             </div>
             
             <div class="item-actions">
                 <form action="/api/carts/{{../cart._id}}/products/{{this.product._id}}" method="PUT" class="quantity-form">
-                    <input type="number" name="quantity" value="{{this.quantity}}" min="1" max="{{this.product.stock}}">
-                    <button type="submit">Actualizar</button>
+                    <label for="quantity-{{this.product._id}}">Cantidad:</label>
+                    <input type="number" id="quantity-{{this.product._id}}" name="quantity" value="{{this.quantity}}" min="1" max="{{this.product.stock}}">
+                    <button type="submit" class="btn-update">Actualizar</button>
                 </form>
                 
-                <form action="/api/carts/{{../cart._id}}/products/{{this.product._id}}" method="DELETE" class="delete-form">
+                <form action="/api/carts/{{../cart._id}}/products/{{this.product._id}}" method="DELETE" class="delete-form" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este producto?')">
                     <button type="submit" class="btn-delete">Eliminar</button>
                 </form>
             </div>
         </div>
         {{/each}}
         
-        <div class="cart-total">
-            <h3>Total: ${{calculateTotal cart.products}}</h3>
-        </div>
-        
-        <div class="cart-actions">
-            <form action="/api/carts/{{cart._id}}" method="DELETE">
-                <button type="submit" class="btn-clear-cart">Vaciar Carrito</button>
-            </form>
+        <div class="cart-summary">
+            <div class="cart-total">
+                <h3>Total: ${{calculateTotal cart.products}}</h3>
+                <p>Productos en el carrito: {{cart.products.length}}</p>
+            </div>
+            
+            <div class="cart-actions">
+                <a href="/" class="btn-continue-shopping">Continuar Comprando</a>
+                <form action="/api/carts/{{cart._id}}" method="DELETE" class="clear-cart-form" onsubmit="return confirm('¿Estás seguro de que quieres vaciar todo el carrito?')">
+                    <button type="submit" class="btn-clear-cart">Vaciar Carrito</button>
+                </form>
+                <button class="btn-checkout">Proceder al Pago</button>
+            </div>
         </div>
     </div>
     {{else}}
     <div class="empty-cart">
-        <p>Tu carrito está vacío</p>
+        <div class="empty-cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+        </div>
+        <h3>Tu carrito está vacío</h3>
+        <p>No tienes productos en tu carrito de compras.</p>
         <a href="/" class="btn-continue-shopping">Continuar Comprando</a>
     </div>
     {{/if}}
