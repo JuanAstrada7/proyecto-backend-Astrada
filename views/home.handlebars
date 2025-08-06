@@ -43,10 +43,7 @@
             <div class="product-actions">
                 <a href="/products/{{_id}}" class="btn-view-details">Ver Detalles</a>
                 {{#if status}}
-                <form action="/api/carts/6893def890c787ca530f7d3b/product/{{_id}}" method="POST" class="add-to-cart-form">
-                    <input type="hidden" name="quantity" value="1">
-                    <button type="submit" class="btn-add-cart">Agregar al Carrito</button>
-                </form>
+                <button onclick="addToCart('{{_id}}')" class="btn-add-cart">Agregar al Carrito</button>
                 {{/if}}
             </div>
         </div>
@@ -69,3 +66,6 @@
     </div>
     {{/if}}
 </div>
+
+<!-- Incluir archivo JavaScript de acciones de productos -->
+<script src="/js/productActions.js"></script>

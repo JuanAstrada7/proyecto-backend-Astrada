@@ -30,11 +30,9 @@
             
             {{#if product.status}}
             <div class="add-to-cart-section">
-                <form action="/api/carts/6893def890c787ca530f7d3b/product/{{product._id}}" method="POST" class="add-to-cart-form">
-                    <label for="quantity">Cantidad:</label>
-                    <input type="number" id="quantity" name="quantity" value="1" min="1" max="{{product.stock}}">
-                    <button type="submit" class="btn-add-cart">Agregar al Carrito</button>
-                </form>
+                <label for="quantity">Cantidad:</label>
+                <input type="number" id="quantity" value="1" min="1" max="{{product.stock}}">
+                <button onclick="addToCartFromDetail('{{product._id}}')" class="btn-add-cart">Agregar al Carrito</button>
             </div>
             {{/if}}
             
@@ -42,3 +40,6 @@
         </div>
     </div>
 </div>
+
+<!-- Incluir archivo JavaScript de acciones de productos -->
+<script src="/js/productActions.js"></script>
