@@ -7,7 +7,7 @@ const productManager = new ProductManager();
 router.get('/', async (req, res, next) => {
     try {
         const { limit, page, sort, query } = req.query;
-        
+
         const options = {
             limit: limit || 10,
             page: page || 1,
@@ -46,9 +46,9 @@ router.get('/:pid', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
         const newProduct = await productManager.addProduct(req.body);
-        
+
         req.app.get('io').emit('productAdded', newProduct);
-        
+
         res.status(201).json({ status: 'success', payload: newProduct });
     } catch (error) {
         error.status = 400;
@@ -59,9 +59,9 @@ router.post('/', async (req, res, next) => {
 router.put('/:pid', async (req, res, next) => {
     try {
         const updatedProduct = await productManager.updateProduct(req.params.pid, req.body);
-        
+
         req.app.get('io').emit('productUpdated', updatedProduct);
-        
+
         res.json({ status: 'success', payload: updatedProduct });
     } catch (error) {
         error.status = 404;
@@ -72,9 +72,9 @@ router.put('/:pid', async (req, res, next) => {
 router.delete('/:pid', async (req, res, next) => {
     try {
         const deletedProduct = await productManager.deleteProduct(req.params.pid);
-        
+
         req.app.get('io').emit('productDeleted', req.params.pid);
-        
+
         res.json({ status: 'success', payload: deletedProduct });
     } catch (error) {
         error.status = 404;

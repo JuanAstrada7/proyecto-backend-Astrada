@@ -1,6 +1,6 @@
 <div class="container">
     <h2> Suma nuevos coleccionables! </h2>
-    
+
     <div class="form-section">
         <h3> Agregar Nuevo Producto</h3>
         <form id="addProductForm">
@@ -14,7 +14,7 @@
             <button type="submit">Agregar Producto</button>
         </form>
     </div>
-    
+
     <div class="form-section">
         <h3> Eliminar Producto</h3>
         <form id="deleteProductForm">
@@ -22,14 +22,15 @@
             <button type="submit">Eliminar Producto</button>
         </form>
     </div>
-    
+
     <div class="products-section">
         <h3> Productos Actuales</h3>
         <div id="productsList" class="products-grid">
             {{#each products}}
             <div class="product-card" data-id="{{id}}">
                 {{#if imageUrl}}
-                <img src="{{imageUrl}}" alt="{{title}}" loading="lazy" class="product-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <img src="{{imageUrl}}" alt="{{title}}" loading="lazy" class="product-image"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 {{/if}}
                 {{#unless imageUrl}}
                 <div class="product-placeholder">🏎️</div>

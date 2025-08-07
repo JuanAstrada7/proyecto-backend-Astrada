@@ -33,13 +33,13 @@ app.engine('handlebars', exphbs.engine({
         allowProtoMethodsByDefault: true
     },
     helpers: {
-        multiply: function(a, b) {
+        multiply: function (a, b) {
             return a * b;
         },
-        eq: function(a, b) {
+        eq: function (a, b) {
             return a === b;
         },
-        calculateTotal: function(products) {
+        calculateTotal: function (products) {
             return products.reduce((total, item) => {
                 return total + (item.product.price * item.quantity);
             }, 0);

@@ -9,37 +9,37 @@
             </div>
             {{/if}}
         </div>
-        
+
         <div class="product-info">
             <h1>{{product.title}}</h1>
             <p class="description">{{product.description}}</p>
-            
+
             <div class="product-details">
                 <p><strong>Código:</strong> {{product.code}}</p>
                 <p><strong>Precio:</strong> ${{product.price}}</p>
                 <p><strong>Stock:</strong> {{product.stock}}</p>
                 <p><strong>Categoría:</strong> {{product.category}}</p>
-                <p><strong>Estado:</strong> 
-                    {{#if product.status}} 
-                        <span class="status-available">Disponible</span>
-                    {{else}} 
-                        <span class="status-unavailable">No disponible</span>
+                <p><strong>Estado:</strong>
+                    {{#if product.status}}
+                    <span class="status-available">Disponible</span>
+                    {{else}}
+                    <span class="status-unavailable">No disponible</span>
                     {{/if}}
                 </p>
             </div>
-            
+
             {{#if product.status}}
             <div class="add-to-cart-section">
                 <label for="quantity">Cantidad:</label>
                 <input type="number" id="quantity" value="1" min="1" max="{{product.stock}}">
-                <button onclick="addToCartFromDetail('{{product._id}}')" class="btn-add-cart">Agregar al Carrito</button>
+                <button onclick="addToCartFromDetail('{{product._id}}')" class="btn-add-cart">Agregar al
+                    Carrito</button>
             </div>
             {{/if}}
-            
+
             <a href="/" class="btn-back">Volver a Productos</a>
         </div>
     </div>
 </div>
 
-<!-- Incluir archivo JavaScript de acciones de productos -->
 <script src="/js/productActions.js"></script>

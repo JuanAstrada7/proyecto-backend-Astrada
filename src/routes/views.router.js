@@ -9,7 +9,7 @@ const cartManager = new CartManager();
 router.get('/', async (req, res) => {
     try {
         const { limit, page, sort, query } = req.query;
-        
+
         const options = {
             limit: limit || 10,
             page: page || 1,
@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
         }
 
         const result = await productManager.getProducts(options);
-        res.render('home', { 
+        res.render('home', {
             products: result.payload,
             pagination: {
                 totalPages: result.totalPages,

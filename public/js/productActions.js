@@ -1,4 +1,3 @@
-// Acciones relacionadas con productos
 async function addToCart(productId, quantity = 1) {
     try {
         const response = await fetch(`/api/carts/6893def890c787ca530f7d3b/product/${productId}`, {
@@ -8,7 +7,7 @@ async function addToCart(productId, quantity = 1) {
             },
             body: JSON.stringify({ quantity: parseInt(quantity) })
         });
-        
+
         if (response.ok) {
             alert('Producto agregado al carrito exitosamente');
         } else {

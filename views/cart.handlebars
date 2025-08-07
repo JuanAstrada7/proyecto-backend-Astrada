@@ -1,6 +1,6 @@
 <div class="container">
     <h2>Carrito de Compras</h2>
-    
+
     {{#if cart.products.length}}
     <div class="cart-items">
         {{#each cart.products}}
@@ -14,7 +14,7 @@
                 </div>
                 {{/if}}
             </div>
-            
+
             <div class="item-details">
                 <h3>{{this.product.title}}</h3>
                 <p class="product-description">{{this.product.description}}</p>
@@ -23,25 +23,28 @@
                 <p><strong>Subtotal:</strong> ${{multiply this.product.price this.quantity}}</p>
                 <p><strong>Categoría:</strong> {{this.product.category}}</p>
             </div>
-            
+
             <div class="item-actions">
                 <div class="quantity-form">
                     <label for="quantity-input-{{this.product._id}}">Cantidad:</label>
-                    <input type="number" id="quantity-input-{{this.product._id}}" value="{{this.quantity}}" min="1" max="{{this.product.stock}}">
-                    <button onclick="updateQuantity('{{../cart._id}}', '{{this.product._id}}')" class="btn-update">Actualizar</button>
+                    <input type="number" id="quantity-input-{{this.product._id}}" value="{{this.quantity}}" min="1"
+                        max="{{this.product.stock}}">
+                    <button onclick="updateQuantity('{{../cart._id}}', '{{this.product._id}}')"
+                        class="btn-update">Actualizar</button>
                 </div>
-                
-                <button onclick="removeProduct('{{../cart._id}}', '{{this.product._id}}')" class="btn-delete">Eliminar</button>
+
+                <button onclick="removeProduct('{{../cart._id}}', '{{this.product._id}}')"
+                    class="btn-delete">Eliminar</button>
             </div>
         </div>
         {{/each}}
-        
+
         <div class="cart-summary">
             <div class="cart-total">
                 <h3>Total: ${{calculateTotal cart.products}}</h3>
                 <p>Productos en el carrito: {{cart.products.length}}</p>
             </div>
-            
+
             <div class="cart-actions">
                 <a href="/" class="btn-continue-shopping">Continuar Comprando</a>
                 <button onclick="clearCart('{{cart._id}}')" class="btn-clear-cart">Vaciar Carrito</button>
@@ -61,5 +64,4 @@
     {{/if}}
 </div>
 
-<!-- Incluir el archivo JavaScript de operaciones del carrito -->
 <script src="/js/cartOperations.js"></script>

@@ -10,11 +10,11 @@ class ProductManager {
         } = options;
 
         let filterQuery = {};
-        
+
         if (query.category) {
             filterQuery.category = query.category;
         }
-        
+
         if (query.status !== undefined) {
             filterQuery.status = query.status === 'true' || query.status === true;
         }
@@ -42,11 +42,11 @@ class ProductManager {
             const prevPage = page > 1 ? page - 1 : null;
             const nextPage = page < totalPages ? page + 1 : null;
 
-            const prevLink = prevPage 
+            const prevLink = prevPage
                 ? `${baseUrl}?page=${prevPage}&limit=${limit}${sort ? `&sort=${sort}` : ''}${query.category ? `&query[category]=${query.category}` : ''}${query.status !== undefined ? `&query[status]=${query.status}` : ''}`
                 : null;
 
-            const nextLink = nextPage 
+            const nextLink = nextPage
                 ? `${baseUrl}?page=${nextPage}&limit=${limit}${sort ? `&sort=${sort}` : ''}${query.category ? `&query[category]=${query.category}` : ''}${query.status !== undefined ? `&query[status]=${query.status}` : ''}`
                 : null;
 
@@ -96,11 +96,11 @@ class ProductManager {
                 updateData,
                 { new: true, runValidators: true }
             );
-            
+
             if (!product) {
                 throw new Error('Producto no encontrado');
             }
-            
+
             return product;
         } catch (error) {
             throw new Error(`Error al actualizar producto: ${error.message}`);

@@ -70,9 +70,9 @@ router.put('/:cid/products/:pid', async (req, res, next) => {
         const quantity = req.body && req.body.quantity;
 
         if (!quantity || quantity < 1) {
-            return res.status(400).json({ 
-                status: 'error', 
-                message: 'La cantidad debe ser mayor a 0' 
+            return res.status(400).json({
+                status: 'error',
+                message: 'La cantidad debe ser mayor a 0'
             });
         }
 
