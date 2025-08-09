@@ -6,19 +6,19 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    background: linear-gradient(135deg, #721e1e, #982a2a);
     color: white;
     min-height: 100vh;
 }
 
 header {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.87);
     padding: 1rem;
     text-align: center;
 }
 
 header h1 {
-    color: #ff6b6b;
+    color: #fa0404;
     margin-bottom: 1rem;
 }
 
@@ -78,7 +78,7 @@ nav a:hover {
 .btn-add-cart,
 .btn-page,
 .btn-search {
-    background: #ff6b6b;
+    background: #080808bd;
     color: white;
 }
 
@@ -86,7 +86,7 @@ nav a:hover {
 .btn-add-cart:hover,
 .btn-page:hover,
 .btn-search:hover {
-    background: #ff5252;
+    background: #f50808;
 }
 
 .btn-view-details,
@@ -102,7 +102,7 @@ nav a:hover {
 
 .btn-clear-cart,
 .btn-delete {
-    background: #dc3545;
+    background: #9b0514;
     color: white;
 }
 
@@ -199,7 +199,6 @@ input:focus {
     cursor: pointer;
 }
 
-/* Nuevos filtros */
 .price-filters {
     display: flex;
     gap: 5px;
@@ -365,7 +364,7 @@ input:focus {
 
 .cart-total h3 {
     font-size: 1.5em;
-    color: #ff6b6b;
+    color: #f3eeee;
 }
 
 .cart-actions {
@@ -424,7 +423,7 @@ input:focus {
 
 .product-info h1 {
     margin-bottom: 1rem;
-    color: #ff6b6b;
+    color: #080808;
 }
 
 .description {
@@ -480,7 +479,7 @@ form {
 button {
     border: none;
     border-radius: 5px;
-    background: #ff6b6b;
+    background: #f52121;
     color: white;
     cursor: pointer;
     font-weight: bold;
@@ -489,7 +488,7 @@ button {
 }
 
 button:hover {
-    background: #ff5252;
+    background: #851d1d;
 }
 
 footer {
