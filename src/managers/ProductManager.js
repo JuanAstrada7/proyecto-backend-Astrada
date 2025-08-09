@@ -12,11 +12,28 @@ class ProductManager {
         let filterQuery = {};
 
         if (query.category) {
-            filterQuery.category = query.category;
+            filterQuery.category = new RegExp(query.category, 'i');
         }
 
         if (query.status !== undefined) {
             filterQuery.status = query.status === 'true' || query.status === true;
+        }
+
+        if (query.minPrice || query.maxPrice) {
+            filterQuery.price = {};
+            if (query.minPrice) {
+                filterQuery.price.$gte = parseFloat(query.minPrice);
+            }
+            if (query.maxPrice) {
+                filterQuery.price.$lte = parseFloat(query.maxPrice);
+            }
+        }
+
+        if (query.search) {
+            filterQuery.$or = [
+                { title: new RegExp(query.search, 'i') },
+                { description: new RegExp(query.search, 'i') }
+            ];
         }
 
         const queryOptions = {
@@ -39,16 +56,26 @@ class ProductManager {
             const totalPages = Math.ceil(totalDocs / queryOptions.limit);
 
             const baseUrl = '/api/products';
-            const prevPage = page > 1 ? page - 1 : null;
-            const nextPage = page < totalPages ? page + 1 : null;
+            const prevPage = page > 1 ? parseInt(page) - 1 : null;
+            const nextPage = parseInt(page) < totalPages ? parseInt(page) + 1 : null;
 
-            const prevLink = prevPage
-                ? `${baseUrl}?page=${prevPage}&limit=${limit}${sort ? `&sort=${sort}` : ''}${query.category ? `&query[category]=${query.category}` : ''}${query.status !== undefined ? `&query[status]=${query.status}` : ''}`
-                : null;
+            const buildQueryString = (pageNum) => {
+                const params = new URLSearchParams();
+                params.append('page', pageNum);
+                params.append('limit', limit);
 
-            const nextLink = nextPage
-                ? `${baseUrl}?page=${nextPage}&limit=${limit}${sort ? `&sort=${sort}` : ''}${query.category ? `&query[category]=${query.category}` : ''}${query.status !== undefined ? `&query[status]=${query.status}` : ''}`
-                : null;
+                if (sort) params.append('sort', sort);
+                if (query.category) params.append('query[category]', query.category);
+                if (query.status !== undefined) params.append('query[status]', query.status);
+                if (query.minPrice) params.append('query[minPrice]', query.minPrice);
+                if (query.maxPrice) params.append('query[maxPrice]', query.maxPrice);
+                if (query.search) params.append('query[search]', query.search);
+
+                return params.toString();
+            };
+
+            const prevLink = prevPage ? `${baseUrl}?${buildQueryString(prevPage)}` : null;
+            const nextLink = nextPage ? `${baseUrl}?${buildQueryString(nextPage)}` : null;
 
             return {
                 status: 'success',

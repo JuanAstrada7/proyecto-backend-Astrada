@@ -18,11 +18,13 @@ router.get('/', async (req, res) => {
         };
 
         if (query) {
-            try {
-                const parsedQuery = JSON.parse(query);
-                options.query = parsedQuery;
-            } catch (e) {
-                if (query) {
+            if (typeof query === 'object') {
+                options.query = { ...query };
+            } else {
+                try {
+                    const parsedQuery = JSON.parse(query);
+                    options.query = parsedQuery;
+                } catch (e) {
                     options.query.category = query;
                 }
             }
@@ -31,6 +33,8 @@ router.get('/', async (req, res) => {
         const result = await productManager.getProducts(options);
         res.render('home', {
             products: result.payload,
+            query: options.query,
+            sort: sort,
             pagination: {
                 totalPages: result.totalPages,
                 prevPage: result.prevPage,

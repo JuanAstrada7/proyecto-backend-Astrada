@@ -8,11 +8,18 @@
 
     <div class="filters">
         <form method="GET" action="/" class="filter-form">
-            <select name="query" onchange="this.form.submit()">
+
+            <select name="query[category]" onchange="this.form.submit()">
                 <option value="">Todas las categorías</option>
-                <option value="Monoplazas" {{#if (eq query "Monoplazas" )}}selected{{/if}}>Monoplazas</option>
-                <option value="Pilotos" {{#if (eq query "Pilotos" )}}selected{{/if}}>Pilotos</option>
-                <option value="Circuitos" {{#if (eq query "Circuitos" )}}selected{{/if}}>Circuitos</option>
+                <option value="Monoplazas" {{#if (eq query.category "Monoplazas" )}}selected{{/if}}>Monoplazas</option>
+                <option value="Pilotos" {{#if (eq query.category "Pilotos" )}}selected{{/if}}>Pilotos</option>
+                <option value="Circuitos" {{#if (eq query.category "Circuitos" )}}selected{{/if}}>Circuitos</option>
+            </select>
+
+            <select name="query[status]" onchange="this.form.submit()">
+                <option value="">Todos los estados</option>
+                <option value="true" {{#if (eq query.status "true" )}}selected{{/if}}>Disponibles</option>
+                <option value="false" {{#if (eq query.status "false" )}}selected{{/if}}>No disponibles</option>
             </select>
 
             <select name="sort" onchange="this.form.submit()">
@@ -20,6 +27,24 @@
                 <option value="asc" {{#if (eq sort "asc" )}}selected{{/if}}>Precio: Menor a Mayor</option>
                 <option value="desc" {{#if (eq sort "desc" )}}selected{{/if}}>Precio: Mayor a Menor</option>
             </select>
+
+            <div class="price-filters">
+                <input type="number" name="query[minPrice]" placeholder="Precio mín." value="{{query.minPrice}}" min="0"
+                    step="0.01">
+                <input type="number" name="query[maxPrice]" placeholder="Precio máx." value="{{query.maxPrice}}" min="0"
+                    step="0.01">
+            </div>
+
+            <div class="search-section">
+                <input type="text" name="query[search]" placeholder="Buscar productos..." value="{{query.search}}">
+                <button type="submit" class="btn-search">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
+            </div>
+
+            <a href="/" class="btn-clear-filters">
+                <i class="fas fa-times"></i> Limpiar filtros
+            </a>
         </form>
     </div>
 
@@ -54,7 +79,9 @@
     {{#if pagination}}
     <div class="pagination">
         {{#if pagination.hasPrevPage}}
-        <a href="{{pagination.prevLink}}" class="btn-page">Anterior</a>
+        <a href="{{pagination.prevLink}}" class="btn-page">
+            <i class="fas fa-chevron-left"></i> Anterior
+        </a>
         {{/if}}
 
         <span class="page-info">
@@ -62,7 +89,9 @@
         </span>
 
         {{#if pagination.hasNextPage}}
-        <a href="{{pagination.nextLink}}" class="btn-page">Siguiente</a>
+        <a href="{{pagination.nextLink}}" class="btn-page">
+            Siguiente <i class="fas fa-chevron-right"></i>
+        </a>
         {{/if}}
     </div>
     {{/if}}
