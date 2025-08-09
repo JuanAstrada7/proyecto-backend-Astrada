@@ -8,8 +8,10 @@ const cartManager = new CartManager();
 
 router.get('/', async (req, res) => {
     try {
-        const { limit, page, sort, query } = req.query;
+        console.log('Query recibido:', req.query);
 
+        const { limit, page, sort } = req.query;
+        
         const options = {
             limit: limit || 10,
             page: page || 1,
@@ -17,20 +19,30 @@ router.get('/', async (req, res) => {
             query: {}
         };
 
-        if (query) {
-            if (typeof query === 'object') {
-                options.query = { ...query };
-            } else {
-                try {
-                    const parsedQuery = JSON.parse(query);
-                    options.query = parsedQuery;
-                } catch (e) {
-                    options.query.category = query;
-                }
-            }
+        if (req.query['query[category]']) {
+            options.query.category = req.query['query[category]'];
+        }
+        
+        if (req.query['query[status]']) {
+            options.query.status = req.query['query[status]'];
+        }
+        
+        if (req.query['query[minPrice]']) {
+            options.query.minPrice = req.query['query[minPrice]'];
+        }
+        
+        if (req.query['query[maxPrice]']) {
+            options.query.maxPrice = req.query['query[maxPrice]'];
+        }
+        
+        if (req.query['query[search]']) {
+            options.query.search = req.query['query[search]'];
         }
 
+        console.log('Options enviado a ProductManager:', options);
+
         const result = await productManager.getProducts(options);
+        
         res.render('home', {
             products: result.payload,
             query: options.query,

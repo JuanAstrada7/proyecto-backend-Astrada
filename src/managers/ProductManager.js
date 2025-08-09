@@ -2,6 +2,9 @@ const Product = require('../models/Product');
 
 class ProductManager {
     async getProducts(options = {}) {
+
+        console.log('ProductManager recibió options:', JSON.stringify(options, null, 2));
+
         const {
             limit = 10,
             page = 1,
@@ -9,13 +12,17 @@ class ProductManager {
             query = {}
         } = options;
 
+        console.log('Query procesado:', JSON.stringify(query, null, 2));
+
         let filterQuery = {};
 
         if (query.category) {
+            console.log('Aplicando filtro de categoría:', query.category);
             filterQuery.category = new RegExp(query.category, 'i');
         }
 
         if (query.status !== undefined) {
+            console.log('Aplicando filtro de status:', query.status);
             filterQuery.status = query.status === 'true' || query.status === true;
         }
 
